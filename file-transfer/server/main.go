@@ -10,7 +10,7 @@ import (
 )
 
 var (
-	port = flag.String("port", "", "Port to listen")
+	port = flag.String("port", "", "Port to listen, e.g.: \":8080\"")
 )
 
 func saveFile(conn net.Conn) {
@@ -58,7 +58,7 @@ func saveFile(conn net.Conn) {
 		totalBytesReceived += nBytes
 		crc.Write(buffer[:nBytes])
 	}
-	fmt.Println("Received", totalBytesReceived, "bytes, crc:", crc.Sum32())
+	fmt.Println(filename, "received", totalBytesReceived, "bytes with crc:", crc.Sum32())
 }
 
 func main() {

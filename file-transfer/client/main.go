@@ -14,7 +14,7 @@ import (
 
 var (
 	file   = flag.String("file", "", "File to transfer.")
-	server = flag.String("server", "", "Server address and port.")
+	server = flag.String("server", "", "Server address and port, e.g.: \"8.8.8.8:8080\".")
 )
 
 func getHeader() []byte {
@@ -60,7 +60,8 @@ func main() {
 		return
 	}
 
-	fmt.Println("Begin transfer file. ", time.Now().Format(time.RFC1123Z))
+	startTime := time.Now().UTC()
+	fmt.Println("Begin transfer file. ", startTime.Format(time.RFC1123Z))
 
 	f, err := os.Open(*file)
 	if err != nil {
@@ -98,5 +99,7 @@ func main() {
 		fmt.Println("Failed to send whole file. Sent bytes", totalBytesSent, "file bytes", fileSize)
 	}
 
-	fmt.Println("Transfer finished at", time.Now().Format(time.RFC1123Z), "crc", crc.Sum32())
+	endTime := time.Now().UTC()
+	timeElapsed := endTime.Sub(startTime) / time.Second
+	fmt.Println(*file, "transfer finished at", endTime.Format(time.RFC1123Z), "crc", crc.Sum32(), "time elapsed: ", timeElapsed, "seconds.")
 }
