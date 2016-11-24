@@ -7,6 +7,7 @@ import (
 	"hash/crc32"
 	"io"
 	"net"
+	"time"
 )
 
 var (
@@ -43,6 +44,7 @@ func saveFile(conn net.Conn) {
 
 	conn.Write([]byte{0x00})
 
+	startTime := time.Now()
 	fmt.Println("Transfering file:", filename)
 	crc := crc32.NewIEEE()
 	totalBytesReceived := 0
@@ -58,7 +60,8 @@ func saveFile(conn net.Conn) {
 		totalBytesReceived += nBytes
 		crc.Write(buffer[:nBytes])
 	}
-	fmt.Println(filename, "received", totalBytesReceived, "bytes with crc:", crc.Sum32())
+	endTime := time.Now()
+	fmt.Println(filename, "received", totalBytesReceived, "bytes with crc:", crc.Sum32(), "in", endTime.Sub(startTime))
 }
 
 func main() {

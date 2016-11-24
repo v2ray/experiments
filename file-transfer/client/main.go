@@ -93,6 +93,9 @@ func main() {
 			bytesSent += n
 		}
 		totalBytesSent += int64(bytesSent)
+		if time.Now().Sub(startTime) > time.Second*10 {
+			fmt.Println("Process:", 100*totalBytesSent/fileSize)
+		}
 	}
 
 	if totalBytesSent != fileSize {
@@ -100,6 +103,6 @@ func main() {
 	}
 
 	endTime := time.Now().UTC()
-	timeElapsed := endTime.Sub(startTime) / time.Second
-	fmt.Println(*file, "transfer finished at", endTime.Format(time.RFC1123Z), "crc", crc.Sum32(), "time elapsed: ", timeElapsed, "seconds.")
+	timeElapsed := endTime.Sub(startTime)
+	fmt.Println(*file, "transfer finished at", endTime.Format(time.RFC1123Z), "crc", crc.Sum32(), "time elapsed: ", timeElapsed)
 }
