@@ -1,7 +1,6 @@
 package main
 
 import (
-	"crypto/rand"
 	"errors"
 	"flag"
 	"fmt"
@@ -56,13 +55,14 @@ func main() {
 			}
 			totalBytes := int64(*fAmount) * 1024 * 1024 * 1024
 			for totalBytes > 0 {
-				rand.Read(buf)
+				//rand.Read(buf)
 				_, err := conn.Write(buf)
 				if err != nil {
 					panic(err)
 				}
 				totalBytes -= BufSize
 			}
+			conn.Close()
 			wg.Done()
 		}()
 	}
@@ -71,6 +71,6 @@ func main() {
 	endTime := time.Now().Unix()
 	elapsed := endTime - startTime
 
-	speed := uint64(*fConcurrency) * uint64(*fAmount) * 1024 / uint64(elapsed)
-	fmt.Println("LoadGen:", *fAmount, "GB of data sent in", elapsed, "seconds, with speed", speed, "MB/s.")
+	speed := uint64(*fConcurrency) * uint64(*fAmount) * 1024 * 1024 / uint64(elapsed)
+	fmt.Println("LoadGen:", *fAmount, "GB of data sent in", elapsed, "seconds, with speed", speed, "kB/s.")
 }

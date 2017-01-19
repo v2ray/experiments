@@ -11,6 +11,8 @@ var (
 )
 
 func receive(conn net.Conn) {
+	defer conn.Close()
+
 	buf := make([]byte, 128*1024)
 	var total uint64
 	for {
