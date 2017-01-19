@@ -40,6 +40,8 @@ func makeConnection() (net.Conn, error) {
 }
 
 func main() {
+	flag.Parse()
+
 	const BufSize = 128 * 1024
 	var wg sync.WaitGroup
 

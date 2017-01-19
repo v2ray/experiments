@@ -35,6 +35,7 @@ func accept(listener net.Listener) {
 }
 
 func main() {
+	flag.Parse()
 	listener, err := net.ListenTCP("tcp4", &net.TCPAddr{
 		IP:   net.IP([]byte{127, 0, 0, 1}),
 		Port: *fPort,
