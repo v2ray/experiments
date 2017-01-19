@@ -1,0 +1,23 @@
+{
+  "log": {
+    "loglevel": "none"
+  },
+  "inbound": {
+    "port": 10002,
+    "listen": "127.0.0.1",
+    "protocol": "vmess",
+    "settings": {
+      "clients": [
+        {
+          "id": "27848739-7e62-4138-9fd3-098a63964b6b",
+          "level": 0,
+          "alterId": 10
+        }
+      ]
+    }
+  },
+  "outbound": {
+    "protocol": "freedom",
+    "settings": {}
+  }
+}

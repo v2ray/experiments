@@ -4,6 +4,7 @@
   },
   "inbound": {
     "port": 10000,
+    "listen": "127.0.0.1",
     "protocol": "dokodemo-door",
     "settings": {
       "address": "127.0.0.1",
@@ -12,8 +13,7 @@
     }
   },
   "outbound": {
-    "protocol": "freedom", // 额外的出口协议。Freedom 协议为直连模式，不经过服务器中转。
-    "settings": {},
-    "tag": "direct"  // 标签，在路由中用到
+    "protocol": "freedom",
+    "settings": {}
   }
 }
