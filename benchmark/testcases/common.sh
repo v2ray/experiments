@@ -1,7 +1,6 @@
 #!/bin/bash
 
 PIDS=()
-FINISH=0
 
 function runenv() {
   
@@ -26,10 +25,8 @@ function runenv() {
 }
 
 function killpids() {
-  FINISH=1
   for PID in "${PIDS[@]}"; do
     echo "Killing p-$PID"
     kill -15 $PID
   done
-  PIDS=()
 }
