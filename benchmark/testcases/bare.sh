@@ -6,7 +6,7 @@ source $DIR/common.sh
 
 runenv "$GOPATH/bin/receiver -port 10000"
 sleep 2
-$GOPATH/bin/loadgen -amount=10
+$GOPATH/bin/loadgen -amount=50
 
 echo "Finishing"
 sleep 2
