@@ -1,14 +1,15 @@
 #!/bin/bash
 
-nohup $GOPATH/bin/receiver -port 10001 & PID=$!
-echo "receiver running on $PID"
+DIR="$(dirname "$0")"
+source $DIR/env.sh
+source $DIR/common.sh
+
 pushd $GOPATH/src/github.com/shadowsocksr/shadowsocksr/shadowsocks
-nohup python server.py -p 10002 -k password -m aes-128-cfb -s 127.0.0.1 & VPID1=$!
-nohup python client.py -p 10002 -l 10000 -k password -m aes-128-cfb -s 127.0.0.1 & VPID2=$!
-sleep 2
+runenv "$GOPATH/bin/receiver -port 10001" "python server.py -p 10002 -k password -m aes-128-cfb -s 127.0.0.1" "python local.py -p 10002 -l 10000 -k password -m aes-128-cfb -s 127.0.0.1"
 popd
-echo "test started"
+sleep 2
 $GOPATH/bin/loadgen -amount=10
-kill -15 $VPID1
-kill -15 $VPID2
-kill -15 $PID
+
+echo "Finishing"
+sleep 2
+killpids

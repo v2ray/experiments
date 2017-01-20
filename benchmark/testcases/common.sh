@@ -9,19 +9,19 @@ function runenv() {
     echo "Running componet at p-$PID"
     PIDS+=($PID)
   done
-  {
-    rm stats.txt
-    while [ -e /proc/${PIDS[0]} ]; do
-      S=""
-      for PID in "${PIDS[@]}"; do
-        SS="$(ps -p $PID -o pcpu,pmem --noheader)"
-        SS="$(echo $SS | tr -d '\n')"
-        S="$S $SS"
-      done
-      echo "$S" | tr ' ' ',' >> stats.txt
-      sleep 1
-    done
-  }&
+#  {
+#    rm stats.txt
+#    while [ -e /proc/${PIDS[0]} ]; do
+#      S=""
+#      for PID in "${PIDS[@]}"; do
+#        SS="$(ps -p $PID -o pcpu,pmem --noheader)"
+#        SS="$(echo $SS | tr -d '\n')"
+#        S="$S $SS"
+#      done
+#      echo "$S" | tr ' ' ',' >> stats.txt
+#      sleep 1
+#    done
+#  }&
 }
 
 function killpids() {

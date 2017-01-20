@@ -9,5 +9,5 @@ sleep 2
 $GOPATH/bin/loadgen -amount=10
 
 echo "Finishing"
-sleep 5
+sleep 2
 killpids
