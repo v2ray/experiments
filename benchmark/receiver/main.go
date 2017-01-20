@@ -14,9 +14,8 @@ var (
 func receive(conn net.Conn) {
 	defer conn.Close()
 
-	buf := make([]byte, 128*1024)
+	buf := make([]byte, 256*1024)
 	var total uint64
-	var c int
 	for {
 		n, err := conn.Read(buf)
 		total += uint64(n)
@@ -24,12 +23,8 @@ func receive(conn net.Conn) {
 			fmt.Println("Connection finishes with", total, "bytes:", err)
 			return
 		}
-		c++
-		if c == 16 {
-			c = 0
-			if err := binary.Write(conn, binary.BigEndian, total); err != nil {
-				panic(err)
-			}
+		if err := binary.Write(conn, binary.BigEndian, total); err != nil {
+			panic(err)
 		}
 	}
 }
