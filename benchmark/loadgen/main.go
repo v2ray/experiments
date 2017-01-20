@@ -97,5 +97,5 @@ func main() {
 	dataAmount := uint64(*fConcurrency) * uint64(*fAmount)
 
 	speed := dataAmount * 1024 / uint64(elapsed)
-	fmt.Println("LoadGen:", dataAmount, "GB of data sent in", elapsed, "seconds, with speed", speed, "MB/s.")
+	fmt.Println("LoadGen:", dataAmount, "GB of data sent through", *fConcurrency, "connections in", elapsed, "seconds, with speed", speed, "MB/s.")
 }
