@@ -56,7 +56,7 @@ func main() {
 				panic(err)
 			}
 			var connWg sync.WaitGroup
-			wg.Add(2)
+			connWg.Add(2)
 			go func() {
 				totalBytes := int64(*fAmount) * 1024 * 1024 * 1024
 				for totalBytes > 0 {
