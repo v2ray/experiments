@@ -8,4 +8,6 @@ runenv "$GOPATH/bin/receiver -port 10001" "/usr/bin/v2ray/v2ray -config=$TEST_DI
 sleep 2
 $GOPATH/bin/loadgen -amount=10
 
+echo "Finishing"
+sleep 5
 killpids

@@ -4,16 +4,17 @@ PIDS=()
 FINISH=0
 
 function runenv() {
+  rm stats.txt
   for CMD in "$@"; do
     nohup $CMD & PID=$!
     echo "Running componet at p-$PID"
     PIDS+=($PID)
   done
   {
-    while [ $FINISH -eq 0]; do
+    while [ $FINISH -eq 0 ]; do
       S=""
       for PID in "${PIDS[@]}"; do
-        SS="$(ps -p $PID -o pcpu,pmem)"
+        SS="$(ps -p $PID -o pcpu,pmem --noheader)"
         S="$S $SS"
       done
       echo "$SS" >> stats.txt
