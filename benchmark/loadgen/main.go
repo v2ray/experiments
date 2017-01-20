@@ -71,7 +71,12 @@ func main() {
 
 	endTime := time.Now().Unix()
 	elapsed := endTime - startTime
+	if elapsed == 0 {
+		fmt.Println("Finished in 0 second. Too fast for benchmark.")
+		return
+	}
+	dataAmount := uint64(*fConcurrency) * uint64(*fAmount)
 
-	speed := uint64(*fConcurrency) * uint64(*fAmount) * 1024 / uint64(elapsed)
-	fmt.Println("LoadGen:", *fAmount, "GB of data sent in", elapsed, "seconds, with speed", speed, "MB/s.")
+	speed := dataAmount * 1024 / uint64(elapsed)
+	fmt.Println("LoadGen:", dataAmount, "GB of data sent in", elapsed, "seconds, with speed", speed, "MB/s.")
 }
