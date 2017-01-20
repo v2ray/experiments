@@ -1,0 +1,19 @@
+{
+  "log": {
+    "loglevel": "none"
+  },
+  "inbound": {
+    "port": 10002,
+    "listen": "127.0.0.1",
+    "protocol": "shadowsocks",
+    "settings": {
+      "method": "aes-128-cfb",
+      "password": "test-password",
+      "ota": true
+    }
+  },
+  "outbound": {
+    "protocol": "freedom",
+    "settings": {}
+  }
+}

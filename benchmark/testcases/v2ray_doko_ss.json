@@ -1,0 +1,27 @@
+{
+  "log": {
+    "loglevel": "none"
+  },
+  "inbound": {
+    "port": 10000,
+    "listen": "127.0.0.1",
+    "protocol": "dokodemo-door",
+    "settings": {
+      "address": "127.0.0.1",
+      "port": 10001,
+      "network": "tcp"
+    }
+  },
+  "outbound": {
+    "protocol": "shadowsocks",
+    "settings": {
+      "servers": [{
+        "address": "127.0.0.1",
+        "port": 10002,
+        "method": "aes-128-cfb",
+        "password": "test-password",
+        "ota": true
+      }]
+    }
+  }
+}
