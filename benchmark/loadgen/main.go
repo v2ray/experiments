@@ -29,11 +29,11 @@ func makeConnection() (net.Conn, error) {
 			Port: *fPort,
 		})
 	case "socks":
-		dialer, err := proxy.SOCKS5("tcp4", fmt.Sprintf(":%d", *fPort), nil, proxy.Direct)
+		dialer, err := proxy.SOCKS5("tcp4", fmt.Sprintf("127.0.0.1:%d", *fPort), nil, proxy.Direct)
 		if err != nil {
 			return nil, err
 		}
-		return dialer.Dial("tcp4", fmt.Sprintf(":%d", *fRemotePort))
+		return dialer.Dial("tcp4", fmt.Sprintf("127.0.0.1:%d", *fRemotePort))
 	default:
 		return nil, errors.New("Unknown proxy type: " + *fType)
 	}
