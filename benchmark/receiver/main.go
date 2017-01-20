@@ -25,7 +25,7 @@ func receive(conn net.Conn) {
 			return
 		}
 		c++
-		if c == 10 {
+		if c == 16 {
 			c = 0
 			if err := binary.Write(conn, binary.BigEndian, total); err != nil {
 				panic(err)
