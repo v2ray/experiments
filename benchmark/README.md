@@ -59,7 +59,7 @@ apt-get install shadowsocks-libev
 
 ### ShadowsocksR Python
 
-```
+```bash
 # Install
 mkdir -p $GOPATH/src/github.com/shadowsocksr
 pushd $GOPATH/src/github.com/shadowsocksr
