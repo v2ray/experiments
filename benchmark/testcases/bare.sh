@@ -1,6 +1,14 @@
 #!/bin/bash
 
-nohup $GOPATH/bin/receiver -port 10000 & PID=$!
-echo "receiver running on $PID"
-$GOPATH/bin/loadgen -amount=100
-kill -15 $PID
+DIR="$(dirname "$0")"
+source $DIR/env.sh
+source $DIR/common.sh
+
+runenv "$GOPATH/bin/receiver -port 10000"
+sleep 2
+$GOPATH/bin/loadgen -amount=10
+
+echo "Finishing"
+sleep 2
+killpids
+
