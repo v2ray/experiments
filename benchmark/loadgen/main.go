@@ -75,7 +75,7 @@ func main() {
 					if err := binary.Read(conn, binary.BigEndian, &count); err != nil {
 						panic(err)
 					}
-					if count > uint64(totalBytes) {
+					if count >= uint64(totalBytes) {
 						break
 					}
 				}
