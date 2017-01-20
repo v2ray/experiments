@@ -12,13 +12,13 @@ function runenv() {
   done
   {
     rm stats.txt
-    while [ $FINISH -eq 0 ]; do
+    while [ -e /proc/$PIDS[0] ]; do
       S=""
       for PID in "${PIDS[@]}"; do
         SS="$(ps -p $PID -o pcpu,pmem --noheader)"
         S="$S $SS"
       done
-      echo "$SS" | tr '\n' ' ' | tr ' ' ',' >> stats.txt
+      echo "$S" | tr '\n' ' ' | tr '  ' ' ' | tr ' ' ',' >> stats.txt
       sleep 1
     done
   }&
