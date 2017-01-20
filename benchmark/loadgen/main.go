@@ -2,11 +2,11 @@ package main
 
 import (
 	"crypto/rand"
+	"encoding/binary"
 	"errors"
 	"flag"
 	"fmt"
 	"net"
-
 	"sync"
 	"time"
 
@@ -55,14 +55,33 @@ func main() {
 			if err != nil {
 				panic(err)
 			}
-			totalBytes := int64(*fAmount) * 1024 * 1024 * 1024
-			for totalBytes > 0 {
-				_, err := conn.Write(buf)
-				if err != nil {
-					panic(err)
+			var connWg sync.WaitGroup
+			wg.Add(2)
+			go func() {
+				totalBytes := int64(*fAmount) * 1024 * 1024 * 1024
+				for totalBytes > 0 {
+					_, err := conn.Write(buf)
+					if err != nil {
+						panic(err)
+					}
+					totalBytes -= BufSize
 				}
-				totalBytes -= BufSize
-			}
+				connWg.Done()
+			}()
+			go func() {
+				totalBytes := int64(*fAmount) * 1024 * 1024 * 1024
+				for {
+					var count uint64
+					if err := binary.Read(conn, binary.BigEndian, &count); err != nil {
+						panic(err)
+					}
+					if count > uint64(totalBytes) {
+						break
+					}
+				}
+				connWg.Done()
+			}()
+			connWg.Wait()
 			conn.Close()
 			wg.Done()
 		}()

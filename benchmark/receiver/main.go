@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/binary"
 	"flag"
 	"fmt"
 	"net"
@@ -15,12 +16,20 @@ func receive(conn net.Conn) {
 
 	buf := make([]byte, 128*1024)
 	var total uint64
+	var c int
 	for {
 		n, err := conn.Read(buf)
 		total += uint64(n)
 		if err != nil {
 			fmt.Println("Connection finishes with", total, "bytes:", err)
 			return
+		}
+		c++
+		if c == 10 {
+			c = 0
+			if err := binary.Write(conn, binary.BigEndian, total); err != nil {
+				panic(err)
+			}
 		}
 	}
 }
