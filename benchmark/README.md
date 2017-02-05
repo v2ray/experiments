@@ -16,7 +16,7 @@ tar -C /usr/local -xzf go1.7.4.linux-amd64.tar.gz
 mkdir -p ./git/src/github.com/v2ray
 cd ./git/src/github.com/v2ray
 git clone https://github.com/v2ray/experiments.git
-cd experiments/benchmark
+cd experiments/benchmark/testcases
 source ./env.sh
 
 # Build benchmark tools
